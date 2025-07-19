@@ -65,6 +65,3 @@ class RectangularParticle(pygame.sprite.Sprite):
         self.original_life = self.life = life
         self.alpha = self.age_ratio = 1
         self.time = 0
-
-        print(self.vel_x)
-        print(self.vel_y)

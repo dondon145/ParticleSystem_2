@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import particle
+import random
 
 pygame.init()
 
@@ -30,9 +31,9 @@ width = 30
 height = 30
 angle_x = 90
 angle_y = 90
-speed = 40
-gravity = 2
-life = 5
+speed = 25
+gravity = 1
+life = 2
 
 obj = particle.RectangularParticle(pos_x, pos_y, color, width, height, angle_x, angle_y, speed, gravity, life)
 moving_group = pygame.sprite.Group()
@@ -50,3 +51,6 @@ while running:
     moving_group.draw(DISPLAY)
     clock.tick(FPS)
     pygame.display.flip()
+
+for i in range(3):
+    print(random.randrange(1, 4))
