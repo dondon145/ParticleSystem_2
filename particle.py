@@ -4,6 +4,9 @@ import math
 
 class RectangularParticle(pygame.sprite.Sprite):
 
+    def die(self):
+        self.kill()
+
     def applied_gravity(self):
         if self.gravity != 0:
             self.gravity_applied = True
@@ -19,6 +22,13 @@ class RectangularParticle(pygame.sprite.Sprite):
         # we need to convert it to make it work
         return self.alpha* 255
     
+    def set_initial_position(self, pos_x, pos_y):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+    
+    def set_initial_time(self, time):
+        self.time = time
+    
     def set_position(self):
 
         if self.gravity_applied ==  True:
@@ -33,6 +43,16 @@ class RectangularParticle(pygame.sprite.Sprite):
 
     def set_rect_center(self):
         self.rect.center = (self.pos_x, self.pos_y)
+
+    def get_life_val(self):
+        return self.life
+    
+    def set_life_val(self, val):
+        self.life = val
+
+    def set_velocity_to_initial(self):
+        self.vel_x = self.initial_vel_x
+        self.vel_y = self.initial_vel_y
 
     def update(self):
         self.set_rect_center()
@@ -55,8 +75,8 @@ class RectangularParticle(pygame.sprite.Sprite):
 
         # might want to change angles in the future throughout program running
         # math module originally sticks to radians, so you need to convert to degrees if you want degrees
-        self.vel_x = speed* math.cos(angle_x* math.pi/ 180)
-        self.vel_y = -1* speed* math.sin(angle_y* math.pi/180)
+        self.initial_vel_x = self.vel_x = speed* math.cos(angle_x* math.pi/ 180)
+        self.initial_vel_y = self.vel_y = -1* speed* math.sin(angle_y* math.pi/180)
 
         self.gravity = self.acceleration = gravity
         self.gravity_applied = False

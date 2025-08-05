@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import particle
 import random
+import emitter_3
 
 pygame.init()
 
@@ -35,22 +36,27 @@ speed = 25
 gravity = 1
 life = 2
 
-obj = particle.RectangularParticle(pos_x, pos_y, color, width, height, angle_x, angle_y, speed, gravity, life)
+
 moving_group = pygame.sprite.Group()
-moving_group.add(obj)
+obj = emitter_3.Emitter_3(moving_group)
+
 
 while running:
+
+    obj.update()
 
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+        
+        if event.type == KEYDOWN:
+            obj.set_emitter_active(True)
 
     DISPLAY.fill(BLACK)
 
     moving_group.update()
     moving_group.draw(DISPLAY)
-    clock.tick(FPS)
-    pygame.display.flip()
 
-for i in range(3):
-    print(random.randrange(1, 4))
+    clock.tick(FPS)
+    #print(moving_group)
+    pygame.display.flip()

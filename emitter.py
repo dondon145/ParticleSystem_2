@@ -13,20 +13,38 @@ YELLOW = (128, 128, 0)
 
 class Emitter():
     
-    
     def sort_pool(self):
-        # it moves the used particle in the end of the particle pool, and deletes it from previous index point
         for i in range(len(self.particle_pool)):
+            
             if self.particle_pool[i][1] == 'in use':
-                self.particle_pool.append(self.particle_pool[i])
-                del self.particle_pool[i]
+                print("sorting_1")
+                if self.particle_pool[i][0].get_life_val() < 0:
+                    print("SORTING_2")
+                    for b in range(len(self.particle_pool), -1, -1):
+                        if self.particle_pool[b][1] == 'not in use':
+                            return b
+                    self.particle_pool[i][0].set_life_val(3)
+                    self.particle_pool[i][1] = 'not in use'
+                    self.particle_pool[b][1] = 'in use'
+                    self.particle_pool[i], self.particle_pool[b] = self.particle_pool[b], self.particle_pool[i]
+    
+
+    
+   
 
     # should be called if certain event met
     # otherwise might malfunction
     def emitt(self, use_ammount, group):
-        for i in range(use_ammount):
+        for i in range(len(self.particle_pool)):
+            if self.particle_pool[i][0].get_life < 0 :
+                print("life is not not zero")
+                if self.particle_pool[i][1] == "not in use":
+                    pass
+
+
+    def add_to_group(self, group):
+        for i in range(len(self.particle_pool)):
             group.add(self.particle_pool[i][0])
-            self.particle_pool[i][1] = "in use"
 
     def update(self):
         self.sort_pool()
@@ -53,8 +71,17 @@ class Emitter():
             self.particle_pool.append([self.obj, 'not in use'])
 
 
-moving_particles = pygame.sprite.Group()
-obj_1 = Emitter(10, moving_particles)
-for i in range(len(obj_1.particle_pool)):
-    print(f"particle {i} : ", obj_1.particle_pool[i])
+    """def sort_pool(self):
+        # it moves the used particle in the end of the particle pool, and deletes it from previous index point
+        for i in range(len(self.particle_pool)):
+            if self.particle_pool[i][1] == 'in use':
+                self.particle_pool.append(self.particle_pool[i])
+                del self.particle_pool[i]
+
+            if self.particle_pool[i][0].life < 0 :
+                self.particle_pool.insert(0, self.particle_pool[i])
+                self.particle_pool[0][1] = 'not in use'
+                self.particle_pool[0].kill()
+                self.particle_pool[0][0].life = 3
+                del self.particle_pool[i]"""
     
