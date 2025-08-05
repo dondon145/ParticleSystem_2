@@ -1,1 +1,1 @@
-This Particle System does not have an Emitter and does not give any effects yet.
+This particle system works alright and has an emitter. But it does not have any premade particle effects. 
