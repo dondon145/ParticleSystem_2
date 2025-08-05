@@ -1,5 +1,6 @@
 import pygame
 import particle
+import random
 
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
@@ -64,8 +65,8 @@ class Emitter_3 :
 
 
     def get_particles(self):
-        self.particle_pool.append([particle.RectangularParticle(400, 400, BLUE, 10, 10, 90, 120, 20, 1, 1), "alive"])
-        self.particle_pool.append([particle.RectangularParticle(400, 400, RED, 10, 10, 90, 90, 20, 1, 1), "alive"])
+        for i in range(self.particle_pool_length):
+            self.particle_pool.append([particle.RectangularParticle(400, 400, BLUE, 10, 10, random.randrange(80, 100), random.randrange(100,120), 20, 1, 1), "alive"])
         
 
     def check_emitter_active(self):
@@ -79,11 +80,12 @@ class Emitter_3 :
             self.group.add(self.particle_pool[i][0])
 
 
-    def __init__(self, group):
+    def __init__(self, group, particle_pool_length):
         self.group = group
         self.particle_pool = []
         self.emitter_active = False
         self.has_dead_particles = False
+        self.particle_pool_length = particle_pool_length
 
         self.get_particles()
 

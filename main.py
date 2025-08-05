@@ -38,7 +38,7 @@ life = 2
 
 
 moving_group = pygame.sprite.Group()
-obj = emitter_3.Emitter_3(moving_group)
+obj = emitter_3.Emitter_3(moving_group, 100)
 
 
 while running:
